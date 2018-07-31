@@ -17,6 +17,6 @@ header=`head -n1 $msg`
 regex="^[a-z]+: [A-Z]{1}"
 if ! [[ "$header" =~ $regex ]];
 then
-  echo >&2 -e "Wrong commit message: Missing context or lower-case first letter (e.g. context: Your message).\nUse git commit -c HEAD@{1} to edit your commit message."
+  echo >&2 -e "Wrong commit message: Missing context or lower-case first letter (e.g. context: Your message).\nUse git commit -eF "`git rev-parse --show-toplevel`"/.git/COMMIT_EDITMSG to edit your commit message."
   exit 1
 fi
