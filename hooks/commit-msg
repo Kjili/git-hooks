@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# git-hooks - a collection of git hooks
+#
+# Written in 2018 by Kjili
+#
+# To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
+#
+# You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
+#
+#
+# A post commit hook triggered after the commit message was written by the user to check whether
+# a context is present in the description (first line) of the commit.
+
+msg=$1
+header=`head -n1 $msg`
+regex="^[a-z]+: [A-Z]{1}"
+if ! [[ "$header" =~ $regex ]];
+then
+  echo >&2 -e "Wrong commit message: Missing context or lower-case first letter (e.g. context: Your message).\nUse git commit -c HEAD@{1} to edit your commit message."
+  exit 1
+fi
