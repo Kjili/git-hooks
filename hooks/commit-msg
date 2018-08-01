@@ -15,7 +15,7 @@
 msg=$1
 header=`head -n1 $msg`
 regex="^[a-z]+: [A-Z]{1}"
-if ! [[ "$header" =~ $regex ]];
+if ! [[ "$header" =~ $regex ]] && [[ "$header" == "Merge branch*" ]];
 then
   echo >&2 -e "Wrong commit message: Missing context or lower-case first letter (e.g. context: Your message).\nUse git commit -eF "`git rev-parse --show-toplevel`"/.git/COMMIT_EDITMSG to edit your commit message."
   exit 1
